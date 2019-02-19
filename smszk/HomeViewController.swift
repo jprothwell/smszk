@@ -15,7 +15,12 @@ class HomeViewController: UITableViewController {
     private var dataList:[[String?]]? {
         didSet{
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                CATransaction.begin()
+                CATransaction.setCompletionBlock({
+                    self.tableView.reloadData()
+                })
+                self.tableView.refreshControl?.endRefreshing()
+                CATransaction.commit()
             }
         }
     }
@@ -42,16 +47,13 @@ class HomeViewController: UITableViewController {
     
     @objc func refreshValueChange() {
         reloadData()
-        UIView.animate(withDuration: 1.0, animations: {
-            self.tableView.refreshControl?.endRefreshing()
-        })
     }
 
     private func reloadData() {
         NetworkActivityIndicator.sharedIndicator.visible = true
         URLSession.shared.dataTask(with: URL(string: "http://www.smszk.com/")!, completionHandler: { (data, resp, error) in
             NetworkActivityIndicator.sharedIndicator.visible = false
-            guard let data = data else {return}
+            let data = data ?? Data()
             self.dataList = try? HTMLDocument(data: data).css(".down-content").map { [$0.firstChild(css: "h4")?.stringValue,$0.firstChild(css: "span")?.stringValue] }
         }).resume()
     }
