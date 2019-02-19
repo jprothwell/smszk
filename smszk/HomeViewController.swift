@@ -83,8 +83,11 @@ class HomeViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        UIPasteboard.general.string = dataList?[indexPath.row][0]
-        navigationController?.pushViewController(MessgeViewController(parms: ["phone":dataList?[indexPath.row][0]]), animated: true)
+        guard let phone = dataList?[indexPath.row][0] else {
+            return
+        }
+        UIPasteboard.general.string = phone
+        navigationController?.pushViewController(MessgeViewController(parms: ["phone": phone]), animated: true)
     }
 }
 

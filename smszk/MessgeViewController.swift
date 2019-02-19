@@ -9,6 +9,7 @@
 import UIKit
 import HandyJSON
 import NetworkActivityIndicator
+import Guitar
 
 class MessgeViewController: UITableViewController {
     
@@ -74,6 +75,9 @@ class MessgeViewController: UITableViewController {
             self.data = MessageModel.deserialize(from: String(data: data, encoding: .utf8))
         }).resume()
     }
+    
+    
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -94,7 +98,24 @@ class MessgeViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        guard let nr = data?.rows?[indexPath.row].nr else {
+            return
+        }
+        guard let code = Guitar(pattern: "\\d{4,6}").evaluateForStrings(from: nr).first, code.count > 0 else {
+            return
+        }
+        toast("[\(code)]已复制到剪贴板")
+        UIPasteboard.general.string = code
     }
 
+}
+
+extension UIViewController {
+    func toast(_ message:String?) {
+        let old = navigationItem.title
+        navigationItem.title = message
+        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (_) in
+            self.navigationItem.title = old
+        }
+    }
 }
