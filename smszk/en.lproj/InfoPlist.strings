@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  EnvProtect
+
+  Created by LeonJing on 2019/1/25.
+  Copyright © 2019 LeonJing. All rights reserved.
+*/
+
+CFBundleDisplayName = "短信免费收";

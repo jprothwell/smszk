@@ -16,6 +16,7 @@
 		C6881144221AC700004E8F5D /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6881143221AC700004E8F5D /* LaunchViewController.swift */; };
 		C6881146221ADBA9004E8F5D /* MessgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6881145221ADBA9004E8F5D /* MessgeViewController.swift */; };
 		C6881148221AE09B004E8F5D /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6881147221AE09B004E8F5D /* MessageModel.swift */; };
+		C688114B221BA5DA004E8F5D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C688114D221BA5DA004E8F5D /* InfoPlist.strings */; };
 		D37732AA320D94211BBAA5E0 /* Pods_smszk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62314AC73F7E787A43DE04A2 /* Pods_smszk.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		C6881143221AC700004E8F5D /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		C6881145221ADBA9004E8F5D /* MessgeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessgeViewController.swift; sourceTree = "<group>"; };
 		C6881147221AE09B004E8F5D /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		C688114C221BA5DA004E8F5D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				C6881136221AB99A004E8F5D /* Assets.xcassets */,
 				C6881138221AB99A004E8F5D /* LaunchScreen.storyboard */,
 				C688113B221AB99A004E8F5D /* Info.plist */,
+				C688114D221BA5DA004E8F5D /* InfoPlist.strings */,
 			);
 			path = smszk;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C688113A221AB99A004E8F5D /* LaunchScreen.storyboard in Resources */,
+				C688114B221BA5DA004E8F5D /* InfoPlist.strings in Resources */,
 				C6881137221AB99A004E8F5D /* Assets.xcassets in Resources */,
 				C6881135221AB996004E8F5D /* LaunchViewController.storyboard in Resources */,
 			);
@@ -240,6 +244,14 @@
 				C6881139221AB99A004E8F5D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C688114D221BA5DA004E8F5D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C688114C221BA5DA004E8F5D /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
