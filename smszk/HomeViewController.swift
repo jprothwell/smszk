@@ -15,8 +15,10 @@ class HomeViewController: UITableViewController {
     private var dataList:[[String?]]? {
         didSet{
             DispatchQueue.main.async {
-                self.tableView.refreshControl?.endRefreshing()
                 self.tableView.reloadData()
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.tableView.refreshControl?.endRefreshing()
+                })
             }
         }
     }
@@ -24,7 +26,7 @@ class HomeViewController: UITableViewController {
     override func loadView() {
         super.loadView()
         tableView.tableFooterView = UIView()
-        navigationItem.title = "免费接收短信"
+        navigationItem.title = "号码库"
         
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(refreshValueChange), for: .valueChanged)
@@ -49,7 +51,7 @@ class HomeViewController: UITableViewController {
         NetworkActivityIndicator.sharedIndicator.visible = true
         URLSession.shared.dataTask(with: URL(string: "http://www.smszk.com/")!, completionHandler: { (data, resp, error) in
             NetworkActivityIndicator.sharedIndicator.visible = false
-            guard let data = data else {return}
+            let data = data ?? Data()
             do {
                 let html = try HTMLDocument(data: data)
                 let sets = html.css(".down-content")

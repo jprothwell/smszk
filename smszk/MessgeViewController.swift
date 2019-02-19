@@ -15,8 +15,10 @@ class MessgeViewController: UITableViewController {
     private var data:MessageModel?{
         didSet{
             DispatchQueue.main.async {
-                self.tableView.refreshControl?.endRefreshing()
                 self.tableView.reloadData()
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.tableView.refreshControl?.endRefreshing()
+                })
             }
         }
     }
@@ -68,7 +70,7 @@ class MessgeViewController: UITableViewController {
         NetworkActivityIndicator.sharedIndicator.visible = true
         URLSession.shared.dataTask(with: req, completionHandler: { (data, resp, error) in
             NetworkActivityIndicator.sharedIndicator.visible = false
-            guard let data = data else {return}
+            let data = data ?? Data()
             self.data = MessageModel.deserialize(from: String(data: data, encoding: .utf8))
         }).resume()
     }
