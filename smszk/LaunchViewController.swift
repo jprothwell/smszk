@@ -22,6 +22,14 @@ class LaunchViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: HomeViewController())
+        let nav = UINavigationController(rootViewController: HomeViewController())
+        
+        let backImage = UIImage(named: "Back")
+        
+        nav.navigationBar.tintColor = UIColor(red: 66.0/255.0, green: 66.0/255.0, blue: 66.0/255.0, alpha: 1.0)
+        nav.navigationBar.backIndicatorImage = backImage
+        nav.navigationBar.backIndicatorTransitionMaskImage = backImage
+        
+        UIApplication.shared.keyWindow?.rootViewController = nav
     }
 }

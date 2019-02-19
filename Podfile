@@ -8,5 +8,5 @@ target 'smszk' do
   # Pods for smszk
   pod 'HandyJSON'
   pod 'Fuzi'
-
+  pod 'NetworkActivityIndicator', :git => 'https://github.com/jprothwell/NetworkActivityIndicator.git'
 end

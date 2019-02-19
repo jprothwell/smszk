@@ -8,6 +8,7 @@
 
 import UIKit
 import Fuzi
+import NetworkActivityIndicator
 
 class HomeViewController: UITableViewController {
     
@@ -29,6 +30,8 @@ class HomeViewController: UITableViewController {
         rc.addTarget(self, action: #selector(refreshValueChange), for: .valueChanged)
         tableView.refreshControl = rc
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         reloadData()
     }
     
@@ -43,7 +46,9 @@ class HomeViewController: UITableViewController {
     }
 
     private func reloadData() {
+        NetworkActivityIndicator.sharedIndicator.visible = true
         URLSession.shared.dataTask(with: URL(string: "http://www.smszk.com/")!, completionHandler: { (data, resp, error) in
+            NetworkActivityIndicator.sharedIndicator.visible = false
             guard let data = data else {return}
             do {
                 let html = try HTMLDocument(data: data)

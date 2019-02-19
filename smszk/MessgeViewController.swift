@@ -8,6 +8,7 @@
 
 import UIKit
 import HandyJSON
+import NetworkActivityIndicator
 
 class MessgeViewController: UITableViewController {
     
@@ -42,6 +43,8 @@ class MessgeViewController: UITableViewController {
         rc.addTarget(self, action: #selector(refreshValueChange), for: .valueChanged)
         tableView.refreshControl = rc
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         reloadData()
     }
     
@@ -56,14 +59,15 @@ class MessgeViewController: UITableViewController {
     
     private func reloadData() {
         let phone = self.phone ?? ""
-        let second  = Date().timeIntervalSince1970
+        let milliseconds  = (Date().timeIntervalSince1970 * 1000).rounded()
         let url = "http://www.smszk.com/smslist/list.php?num=" + phone
-        let body = "_search=false&rows=20&page=1&sidx=id&sord=desc" + "&nd=\(second*1000)"
+        let body = "_search=false&rows=20&page=1&sidx=id&sord=desc" + "&nd=" + String(format: "%.0f", milliseconds)
         var req = URLRequest(url: URL(string: url)!)
         req.httpMethod = "POST"
         req.httpBody = body.data(using: .utf8)
-        
+        NetworkActivityIndicator.sharedIndicator.visible = true
         URLSession.shared.dataTask(with: req, completionHandler: { (data, resp, error) in
+            NetworkActivityIndicator.sharedIndicator.visible = false
             guard let data = data else {return}
             self.data = MessageModel.deserialize(from: String(data: data, encoding: .utf8))
         }).resume()
@@ -76,7 +80,8 @@ class MessgeViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "UITableViewCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell(style: .value1, reuseIdentifier: identifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell(style: .default, reuseIdentifier: identifier)
+        
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = data?.rows?[indexPath.row].nr
 
