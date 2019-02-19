@@ -82,10 +82,12 @@ class MessgeViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "UITableViewCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell(style: .default, reuseIdentifier: identifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell(style: .subtitle, reuseIdentifier: identifier)
         
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = data?.rows?[indexPath.row].nr
+        
+        cell.detailTextLabel?.text = data?.rows?[indexPath.row].subtitle
 
         return cell
     }

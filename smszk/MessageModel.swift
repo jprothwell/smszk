@@ -17,6 +17,21 @@ class MessageModel: HandyJSON {
         var model: String?
         var thisnum: String?
         
+        var subtitle: String {
+            get{
+                var items:[String] = []
+                if let pn = phonenum {
+                    items.append(pn)
+                }
+                if let t = time {
+                    items.append(t)
+                }
+                if let i = id {
+                    items.append(i)
+                }
+                return items.joined(separator: " | ")
+            }
+        }
         
         required init() {
             
